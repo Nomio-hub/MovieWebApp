@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Comp1 = () => {
   return (
-    <div className="w-full h-150 bg-[url('/wicked.jpg')] bg-cover bg-center relative ">
+    <div className="w-full h-130 bg-[url('/wicked.jpg')] bg-cover bg-center relative ">
       <div className="absolute ">
         <div className="w-110 h-66 text-white space-y-4 pt-44.5 pl-35">
       <div>
