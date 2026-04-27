@@ -24,3 +24,25 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  background: #F4F4F5;
+  border-radius: 9999px;
+  width: 40px;
+  height: 40px;
+  padding: 16px;
+  color: #09090B;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background: white; /* yellow */
+}
+.mySwiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.80); /* yellow */
+}
+
