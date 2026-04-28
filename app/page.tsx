@@ -7,86 +7,58 @@ import { When } from "@/app/components/When";
 import { useEffect, useState } from "react";
 import { MovieSummary } from "./types";
 import axios from "axios";
-import Swiper from "swiper";
 
+const API_KEY = "d67d8bebd0f4ff345f6505c99e9d0289";
+const BASE_URL = "https://api.themoviedb.org/3";
 
 export default function Home() {
+   
   const [upcoming, setUpcoming] = useState<MovieSummary[]>([]); 
   const [popular, setPopular] = useState<MovieSummary[]>([]);
   const [topRated, setTopRated] = useState<MovieSummary[]>([]);
-  const [trending, setTrending] = useState<MovieSummary[]>([]);
+  
 
-  useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=d67d8bebd0f4ff345f6505c99e9d0289`).then((res) => {
-      setUpcoming(res.data.results);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=d67d8bebd0f4ff345f6505c99e9d0289`).then((res) => {
-      setPopular(res.data.results);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=d67d8bebd0f4ff345f6505c99e9d0289`).then((res) => {
-      setTopRated(res.data.results);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=d67d8bebd0f4ff345f6505c99e9d0289`).then((res) => {
-      setTrending(res.data.results);
-    });
-  }, []);
+ useEffect(() => {
+    const fetchAll = async () => {
+      const [upcomingRes, popularRes, topRatedRes] = await Promise.all([
+        axios.get(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}`),
+        axios.get(`${BASE_URL}/movie/popular?api_key=${API_KEY}`),
+        axios.get(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}`),
+      
+      ]);
+      setUpcoming(upcomingRes.data.results);
+      setPopular(popularRes.data.results);
+      setTopRated(topRatedRes.data.results);
+     
+    };
 
- 
-
+    fetchAll();
+  }, []);
+  const sections = [
+    { label: "Upcoming", data: upcoming },
+    { label: "Popular", data: popular },
+    { label: "Top Rated", data: topRated },
+   
+  ];
 
   return (
-    <div className="">
-     <div className="space-y-3 text-black">
-       <div className="">
-        <Header/>
-       </div>
-       <div>
-        
-        <Comp1/>
-       </div>
-      
-       <div className="px-20">
-        <>
-        <When
-        when="Upcoming"/>
-         <div className="grid grid-cols-5 gap-8">
-        {upcoming.slice(0, 10).map((upcome) => (
-          <MovieCard upcoming={upcome} key={upcome.id}
-          />
+    <div className="space-y-3 text-black">
+      <Header />
+      <Comp1 />
+      <div className="container">
+        {sections.map(({ label, data }) => (
+          <div key={label}>
+            <When when={label} />
+            <div className="grid grid-cols-5 gap-8">
+              {data.slice(0, 10).map((movie) => (
+                <MovieCard upcoming={movie} key={movie.id} />
+              ))}
+            </div>
+          </div>
         ))}
-         </div>
-        </>
-
-        <>
-        <When
-        when="Popular"/>
-         <div className="grid grid-cols-5 gap-8">
-        {popular.slice(0, 10).map((upcome) => (
-          <MovieCard upcoming={upcome} key={upcome.id}
-          />
-        ))}
-         </div>
-         </>
-
-        <>   
-         <When
-        when="Top rated"/>
-         <div className="grid grid-cols-5 gap-8">
-        {topRated.slice(0, 10).map((upcome) => (
-          <MovieCard upcoming={upcome} key={upcome.id}
-          />
-        ))}
-         </div>
-        </>
-       </div>
-      <Footer/>
       </div>
+      
+      <Footer />
     </div>
   );
 }

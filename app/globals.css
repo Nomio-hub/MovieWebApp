@@ -28,6 +28,10 @@ body {
   margin: 0 auto;
   max-width: 1280px;
 }
+.contain {
+  margin: 0 auto;
+  max-width: 1080px;
+}
 
 .mySwiper .swiper-button-next,
 .mySwiper .swiper-button-prev {

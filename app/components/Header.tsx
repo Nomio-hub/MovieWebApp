@@ -1,38 +1,8 @@
+"use client"
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { Genre } from '../types';
 import { tmdb } from '@/lib/tmdb';
-
-const genres = [
-  "Action",
-  "Adventure",
-  "Animation",
-  "Biography",
-  "Comedy",
-  "Crime",
-  "Documentary",
-  "Drama",
-  "Family",
-  "Fantasy",
-  "Film-Noir",
-  "Game-Show",
-  "History",
-  "Horror",
-  "Music",
-  "Musical",
-  "Mystery",
-  "News",
-  "Reality-TV",
-  "Romance",
-  "Sci-Fi",
-  "Short",
-  "Sport",
-  "Talk-Show",
-  "Thriller",
-  "War",
-  "Western",
-];
-``;
 
 export const Header = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -44,6 +14,7 @@ export const Header = () => {
     });
   }, []);
   return (
+    <div className='container'>
       <div className="py-[11.5px] flex justify-between items-center px-16">
           <Link href={"/"}>
             <svg width="93" height="20" viewBox="0 0 93 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +30,7 @@ export const Header = () => {
               />
             </svg>
           </Link>
-          <div className="flex gap-3">
+          <div className="flex gap-3 relative">
               <button
                 onClick={() => {
                   setIsVisible(!isVisible);
@@ -117,6 +88,8 @@ export const Header = () => {
           </div>
         </div>
   
+    </div>
+      
   )
 }
 
