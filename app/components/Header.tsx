@@ -15,7 +15,7 @@ export const Header = () => {
   }, []);
   return (
     <div className='container'>
-      <div className="py-[11.5px] flex justify-between items-center px-16">
+      <div className="py-[11.5px] flex justify-between items-center">
           <Link href={"/"}>
             <svg width="93" height="20" viewBox="0 0 93 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
