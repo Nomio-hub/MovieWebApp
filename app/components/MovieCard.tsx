@@ -1,14 +1,13 @@
 "use client"
 import { MovieSummary } from '@/app/types'
 import Link from 'next/link'
-import React from 'react'
 
 export const MovieCard = ({upcoming}: {upcoming: MovieSummary}) => {
   return (
     <Link
     href={`/movies/${upcoming.id}`}>
     <div className="w-[229.73px] h-109.75 bg-[#F4F4F5] rounded-lg overflow-hidden gap-1">
-      <img className='w-full h-85 object-cover object-center' src={`https://image.tmdb.org/t/p/w500${upcoming.poster_path}`} alt="" />
+      <img className='w-full h-85 object-cover group-hover:scale-105 transition-transform duration-300' src={`https://image.tmdb.org/t/p/w500${upcoming.poster_path}`} alt="" />
       <div className='p-2'>
       <div className='flex gap-1 items-center'>
         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">

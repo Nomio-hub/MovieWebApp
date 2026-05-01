@@ -100,7 +100,7 @@ export const Comp1 = () => {
           onClick={() => setTrailerKey(null)}
         >
           <div
-            className="relative w-[900px] max-w-[90vw]"
+            className="relative w-225 max-w-[90vw]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}

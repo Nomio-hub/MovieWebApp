@@ -60,7 +60,7 @@ const page = () => {
   return (
     <div>
       <Header/>
-      <div className='contain pt-[52px] pb-20'>
+      <div className='contain pt-13 pb-20'>
         <div className='flex flex-col gap-8'>
         <div className='space-y-8'>
           <div className='flex justify-between'>
