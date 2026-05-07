@@ -1,5 +1,5 @@
 export type MovieSummary = {
- adult: boolean;
+  adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
   id: number;
@@ -9,7 +9,7 @@ export type MovieSummary = {
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: string; 
+  release_date: string;
   softcore: boolean;
   video: boolean;
   vote_average: number;
@@ -93,10 +93,23 @@ export interface MovieDetail {
   vote_count: number;
 }
 
-
 export interface MovieListResponse {
   page: number;
   results: MovieSummary[];
   total_pages: number;
   total_results: number;
+}
+export interface CrewMember {
+  job: string;
+  name: string;
+}
+export interface CastMember {
+  id: number;
+  name: string;
+}
+export interface Video {
+  key: string;
+  site: string;
+  type: string;
+  name: string;
 }

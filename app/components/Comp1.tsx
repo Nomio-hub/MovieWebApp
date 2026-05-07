@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -24,9 +24,11 @@ export const Comp1 = () => {
 
   const handleWatchTrailer = async (movieId: number, movieTitle: string) => {
     try {
-      const res = await axios.get(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);
+      const res = await axios.get(
+        `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`,
+      );
       const trailer = res.data.results?.find(
-        (v: any) => v.type === "Trailer" && v.site === "YouTube"
+        (v: any) => v.type === "Trailer" && v.site === "YouTube",
       );
       if (trailer) {
         setTrailerKey(trailer.key);
@@ -70,20 +72,33 @@ export const Comp1 = () => {
                   <svg width="25" height="24" viewBox="0 0 25 24" fill="none">
                     <path
                       d="M12.1667 0.5L15.7717 7.80333L23.8333 8.98167L18 14.6633L19.3767 22.69L12.1667 18.8983L4.95667 22.69L6.33333 14.6633L0.5 8.98167L8.56167 7.80333L12.1667 0.5Z"
-                      fill="#FDE047" stroke="#FDE047" strokeLinecap="round" strokeLinejoin="round"
+                      fill="#FDE047"
+                      stroke="#FDE047"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
-                  <p>{movie.vote_average.toFixed(1)}<span className="text-base text-[#71717A]">/10</span></p>
+                  <p>
+                    {movie.vote_average.toFixed(1)}
+                    <span className="text-base text-[#71717A]">/10</span>
+                  </p>
                 </div>
 
-                <p className="text-sm leading-relaxed line-clamp-3">{movie.overview}</p>
+                <p className="text-sm leading-relaxed line-clamp-3">
+                  {movie.overview}
+                </p>
 
                 <button
                   onClick={() => handleWatchTrailer(movie.id, movie.title)}
                   className="flex gap-2 h-10 w-[145px] bg-white justify-center items-center rounded-lg text-black px-2 py-4 cursor-pointer hover:bg-gray-100 transition"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3.33301 2L12.6663 8L3.33301 14V2Z" stroke="#18181B" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M3.33301 2L12.6663 8L3.33301 14V2Z"
+                      stroke="#18181B"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                   Watch Trailer
                 </button>
@@ -93,7 +108,6 @@ export const Comp1 = () => {
         ))}
       </Swiper>
 
-      {/* Trailer Modal */}
       {trailerKey && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"
@@ -103,9 +117,10 @@ export const Comp1 = () => {
             className="relative w-225 max-w-[90vw]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
             <div className="bg-black flex justify-between items-center px-4 py-3">
-              <p className="text-white font-semibold">{trailerTitle}: Trailer</p>
+              <p className="text-white font-semibold">
+                {trailerTitle}: Trailer
+              </p>
               <button
                 onClick={() => setTrailerKey(null)}
                 className="text-white text-xl hover:text-gray-300 transition"
@@ -114,7 +129,6 @@ export const Comp1 = () => {
               </button>
             </div>
 
-            {/* YouTube Player */}
             <div className="aspect-video">
               <iframe
                 width="100%"

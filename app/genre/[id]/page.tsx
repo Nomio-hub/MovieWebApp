@@ -1,84 +1,98 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import { useParams, useSearchParams, useRouter } from 'next/navigation'
-import { tmdb } from '@/lib/tmdb'
-import Link from 'next/link'
-import { Genre, Movie } from '@/app/types'
-import { Header } from '@/app/components/Header'
-import { Footer } from '@/app/components/Footer'
+"use client";
+import React, { useEffect, useState } from "react";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { tmdb } from "@/lib/tmdb";
+import Link from "next/link";
+import { Genre, Movie } from "@/app/types";
+import { Header } from "@/app/components/Header";
+import { Footer } from "@/app/components/Footer";
 
 export default function GenrePage() {
-  const params = useParams()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const genreId = params.id as string
-  const genreName = searchParams.get('name') || 'Movies'
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const genreId = params.id as string;
+  const genreName = searchParams.get("name") || "Movies";
 
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [totalResults, setTotalResults] = useState(0)
-  const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [loading, setLoading] = useState(true)
-  const [genres, setGenres] = useState<Genre[]>([])
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [genres, setGenres] = useState<Genre[]>([]);
 
   useEffect(() => {
     tmdb.get("/genre/movie/list").then((res) => {
-      setGenres(res.data.genres)
-    })
-  }, [])
-
-  // FIX 3: Reset page to 1 whenever genreId changes
-  useEffect(() => {
-    setPage(1)
-  }, [genreId])
+      setGenres(res.data.genres);
+    });
+  }, []);
 
   useEffect(() => {
-    setLoading(true)
-    tmdb.get('/discover/movie', {
-      params: {
-        with_genres: genreId,
-        page,
-        sort_by: 'popularity.desc',
-      }
-    }).then((res) => {
-      setMovies(res.data.results)
-      setTotalResults(res.data.total_results)
-      setTotalPages(Math.min(res.data.total_pages, 500))
-      setLoading(false)
-    })
-  }, [genreId, page])
+    setPage(1);
+  }, [genreId]);
 
-  // FIX 2: Correct pagination page number calculation
+  useEffect(() => {
+    setLoading(true);
+    tmdb
+      .get("/discover/movie", {
+        params: {
+          with_genres: genreId,
+          page,
+          sort_by: "popularity.desc",
+        },
+      })
+      .then((res) => {
+        setMovies(res.data.results);
+        setTotalResults(res.data.total_results);
+        setTotalPages(Math.min(res.data.total_pages, 500));
+        setLoading(false);
+      });
+  }, [genreId, page]);
+
   const getPaginationPages = () => {
-    const delta = 2
-    const start = Math.max(1, Math.min(page - delta, totalPages - delta * 2))
-    const end = Math.min(totalPages, start + delta * 2)
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i)
-  }
+    const delta = 2;
+    const start = Math.max(1, Math.min(page - delta, totalPages - delta * 2));
+    const end = Math.min(totalPages, start + delta * 2);
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  };
 
   return (
     <div className="container">
       <Header />
-      <h2 className='text-3xl font-semibold pt-8 pb-4'>Search filter</h2>
-      <div className='flex'>
+      <h2 className="text-3xl font-semibold pt-8 pb-4">Search filter</h2>
+      <div className="flex">
         <div>
-          <p className='text-2xl font-semibold'>Genres</p>
-          <p className='text-base pb-2'>See lists of movies by genre</p>
+          <p className="text-2xl font-semibold">Genres</p>
+          <p className="text-base pb-2">See lists of movies by genre</p>
           <div className="flex flex-wrap gap-4 max-w-[387px]">
             {genres.map((genre) => (
-              // FIX 1: Genre buttons now navigate to the correct genre page
               <button
                 key={genre.id}
-                onClick={() => router.push(`/genre/${genre.id}?name=${encodeURIComponent(genre.name)}`)}
+                onClick={() =>
+                  router.push(
+                    `/genre/${genre.id}?name=${encodeURIComponent(genre.name)}`,
+                  )
+                }
                 className={`border cursor-pointer hover:opacity-80 duration-300 text-xs font-semibold py-0.5 pl-2.5 pr-1 rounded-full flex items-center gap-2 ${
                   String(genre.id) === String(genreId)
-                    ? 'bg-[#09090B] text-white border-[#09090B]'
-                    : 'border-[#E4E4E7]'
+                    ? "bg-[#09090B] text-white border-[#09090B]"
+                    : "border-[#E4E4E7]"
                 }`}
               >
                 {genre.name}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 12L10 8L6 4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 12L10 8L6 4"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             ))}
@@ -103,8 +117,11 @@ export default function GenrePage() {
             <>
               <div className="grid grid-cols-4 gap-12">
                 {movies.map((movie) => (
-                  <Link key={movie.id} href={`/movie/${movie.id}`} className="group">
-                    {/* FIX 4: Card uses flex-col so content always fills space correctly */}
+                  <Link
+                    key={movie.id}
+                    href={`/movies/${movie.id}`}
+                    className="group"
+                  >
                     <div className="overflow-hidden rounded-lg max-w-[165px] bg-gray-100 flex flex-col">
                       {movie.poster_path ? (
                         <img
@@ -118,13 +135,25 @@ export default function GenrePage() {
                         </div>
                       )}
                       <div className="p-2">
-                        <div className='flex gap-1 items-center'>
-                          <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.16667 0.5L9.22667 4.67333L13.8333 5.34667L10.5 8.59333L11.2867 13.18L7.16667 11.0133L3.04667 13.18L3.83333 8.59333L0.5 5.34667L5.10667 4.67333L7.16667 0.5Z" fill="#FDE047" stroke="#FDE047" strokeLinecap="round" strokeLinejoin="round" />
+                        <div className="flex gap-1 items-center">
+                          <svg
+                            width="15"
+                            height="14"
+                            viewBox="0 0 15 14"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.16667 0.5L9.22667 4.67333L13.8333 5.34667L10.5 8.59333L11.2867 13.18L7.16667 11.0133L3.04667 13.18L3.83333 8.59333L0.5 5.34667L5.10667 4.67333L7.16667 0.5Z"
+                              fill="#FDE047"
+                              stroke="#FDE047"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
                           </svg>
-                          <p className='text-[#09090B] text-sm font-medium'>
+                          <p className="text-[#09090B] text-sm font-medium">
                             {movie.vote_average.toFixed(1)}
-                            <span className='text-xs text-[#71717A]'>/10</span>
+                            <span className="text-xs text-[#71717A]">/10</span>
                           </p>
                         </div>
                         <p className="mt-1 text-base font-medium text-[#09090B] line-clamp-2">
@@ -136,25 +165,23 @@ export default function GenrePage() {
                 ))}
               </div>
 
-              {/* Pagination */}
               <div className="flex justify-center items-center gap-2 mt-10">
                 <button
-                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
                   className="px-4 py-2 text-sm border border-[#E4E4E7] rounded-lg disabled:opacity-40 hover:bg-gray-50 cursor-pointer"
                 >
                   Previous
                 </button>
 
-                {/* FIX 2: Correct page pills with no duplicates or out-of-range values */}
                 {getPaginationPages().map((pageNum) => (
                   <button
                     key={pageNum}
                     onClick={() => setPage(pageNum)}
                     className={`w-10 h-10 text-sm rounded-lg border cursor-pointer ${
                       pageNum === page
-                        ? 'bg-[#E4E4E7] border-black'
-                        : 'border-[#E4E4E7] hover:bg-gray-50'
+                        ? "bg-[#E4E4E7] border-black"
+                        : "border-[#E4E4E7] hover:bg-gray-50"
                     }`}
                   >
                     {pageNum}
@@ -162,7 +189,7 @@ export default function GenrePage() {
                 ))}
 
                 <button
-                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
                   className="px-4 py-2 text-sm border border-[#E4E4E7] rounded-lg disabled:opacity-40 hover:bg-gray-50 cursor-pointer"
                 >
@@ -173,7 +200,7 @@ export default function GenrePage() {
           )}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }
