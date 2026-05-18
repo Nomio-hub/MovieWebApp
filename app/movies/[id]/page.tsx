@@ -15,7 +15,9 @@ import Link from "next/link";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
@@ -211,6 +213,8 @@ const page = () => {
                     className="min-w-5xl h-[650px]"
                   >
                     <DialogHeader>
+                      <DialogTitle></DialogTitle>
+                      <DialogDescription></DialogDescription>
                       <iframe
                         src={"https://www.vidking.net/embed/movie/" + id}
                         width="100%"
