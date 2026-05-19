@@ -81,7 +81,7 @@ export const Search = () => {
 
   return (
     <div className="relative" ref={searchRef}>
-      <div className="relative flex items-center pl-8 h-9 w-94.75 border-gray-300 border rounded-lg ">
+      <div className="relative flex items-center pl-8 h-9 w-94.75 border-gray-300 border rounded-lg  dark:text-white">
         {isSearching ? (
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 animate-spin"
@@ -94,7 +94,7 @@ export const Search = () => {
             <circle cx="12" cy="12" r="10" stroke="#d1d5db" strokeWidth="3" />
             <path
               d="M12 2a10 10 0 0 1 10 10"
-              stroke="#09090B"
+              stroke="currentcolor"
               strokeWidth="3"
               strokeLinecap="round"
             />
@@ -110,13 +110,13 @@ export const Search = () => {
           >
             <path
               d="M4.7998 0.5C7.17456 0.5 9.0995 2.42507 9.09961 4.7998C9.09961 5.81543 8.74857 6.74777 8.16016 7.4834L7.87988 7.83301L11.2236 11.1768C11.23 11.1833 11.2334 11.1917 11.2334 11.2002L11.2236 11.2236C11.2106 11.2365 11.1898 11.2364 11.1768 11.2236L7.83301 7.87988L7.4834 8.16016C6.74777 8.74857 5.81543 9.09961 4.7998 9.09961C2.42507 9.0995 0.5 7.17456 0.5 4.7998C0.500106 2.42514 2.42514 0.500106 4.7998 0.5ZM4.7998 0.566406C2.46195 0.566512 0.566512 2.46195 0.566406 4.7998C0.566406 7.13775 2.46189 9.0331 4.7998 9.0332C7.13781 9.0332 9.0332 7.13781 9.0332 4.7998C9.0331 2.46189 7.13775 0.566406 4.7998 0.566406Z"
-              fill="#09090B"
-              stroke="currentColor"
+              fill="none"
+              stroke="currentcolor"
             />
           </svg>
         )}
         <input
-          className="text-sm outline-none w-full pr-3"
+          className="text-sm outline-none w-full pr-3 dark:text-white"
           placeholder="Search..."
           value={searchQuery}
           onChange={handleInputChange}

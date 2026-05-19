@@ -68,12 +68,12 @@ export const GenreDropdown = () => {
           See lists of movies by genre
         </div>
         <hr className="border border-[#E4E4E7] my-4" />
-        <div className="flex flex-wrap gap-4 max-w-135  dark:bg-black">
+        <div className="flex flex-wrap gap-4 max-w-135  dark:bg-black dark:text-[#FAFAFA]">
           {genres.map((genre) => (
             <button
               key={genre.id}
               onClick={() => handleGenreClick(genre)}
-              className="border cursor-pointer hover:opacity-80 duration-300 text-xs font-semibold py-0.5 pl-2.5 pr-1 border-[#E4E4E7] rounded-full flex items-center gap-2"
+              className="border cursor-pointer hover:opacity-80 duration-300 text-xs font-semibold py-0.5 pl-2.5 pr-1 border-[#E4E4E7] rounded-full flex items-center gap-2 dark:text-[#FAFAFA]"
             >
               {genre.name}
               <svg
@@ -85,7 +85,7 @@ export const GenreDropdown = () => {
               >
                 <path
                   d="M6 12L10 8L6 4"
-                  stroke="#09090B"
+                  stroke="#7D7575"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />

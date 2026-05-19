@@ -26,11 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="inter_b2991b2-module__9mH_6q__variable bg-white">
-      <body className="min-h-full flex flex-col">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="min-h-full flex flex-col bg-white dark:bg-black">
         <ThemeProvider
-          enableSystem={false}
-          defaultTheme="light"
+          enableSystem={true}
+          defaultTheme="system"
           attribute="class"
         >
           {children}

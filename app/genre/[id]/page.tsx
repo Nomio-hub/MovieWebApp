@@ -57,14 +57,14 @@ export default function GenrePage() {
   };
 
   return (
-    <div className="container">
+    <div className="container dark:text-white">
       <Header />
       <h2 className="text-3xl font-semibold pt-8 pb-4">Search filter</h2>
       <div className="flex">
         <div>
           <p className="text-2xl font-semibold">Genres</p>
           <p className="text-base pb-2">See lists of movies by genre</p>
-          <div className="flex flex-wrap gap-4 max-w-[387px]">
+          <div className="flex flex-wrap gap-4 max-w-[387px]  dark:text-white">
             {genres.map((genre) => (
               <button
                 key={genre.id}
@@ -122,12 +122,12 @@ export default function GenrePage() {
                     href={`/movies/${movie.id}`}
                     className="group"
                   >
-                    <div className="overflow-hidden rounded-lg max-w-[165px] bg-gray-100 flex flex-col">
+                    <div className="overflow-hidden rounded-lg max-w-[165px] bg-gray-100 flex flex-col dark:bg-[#27272A]">
                       {movie.poster_path ? (
                         <img
                           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                           alt={movie.title}
-                          className="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300 dark:text-white"
                         />
                       ) : (
                         <div className="w-full aspect-[2/3] flex items-center justify-center text-gray-400 text-sm text-center p-2">
@@ -136,27 +136,13 @@ export default function GenrePage() {
                       )}
                       <div className="p-2">
                         <div className="flex gap-1 items-center">
-                          <svg
-                            width="15"
-                            height="14"
-                            viewBox="0 0 15 14"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M7.16667 0.5L9.22667 4.67333L13.8333 5.34667L10.5 8.59333L11.2867 13.18L7.16667 11.0133L3.04667 13.18L3.83333 8.59333L0.5 5.34667L5.10667 4.67333L7.16667 0.5Z"
-                              fill="#FDE047"
-                              stroke="#FDE047"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <p className="text-[#09090B] text-sm font-medium">
+                          ⭐
+                          <p className="text-[#09090B] text-sm font-medium dark:text-white">
                             {movie.vote_average.toFixed(1)}
                             <span className="text-xs text-[#71717A]">/10</span>
                           </p>
                         </div>
-                        <p className="mt-1 text-base font-medium text-[#09090B] line-clamp-2">
+                        <p className="mt-1 text-base font-medium text-[#09090B] line-clamp-2 dark:text-white">
                           {movie.title}
                         </p>
                       </div>

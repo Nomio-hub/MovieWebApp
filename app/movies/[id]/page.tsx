@@ -145,8 +145,10 @@ const page = () => {
           <div className="space-y-8">
             <div className="flex justify-between">
               <div>
-                <p className="font-bold text-4xl">{movie.title}</p>
-                <p>
+                <p className="dark:text-white font-bold text-4xl">
+                  {movie.title}
+                </p>
+                <p className="dark:text-white">
                   {movie.release_date}
                   <span> · {movie.original_language?.toUpperCase()}</span>
                   <span> · {formatRuntime(movie.runtime)}</span>
@@ -154,14 +156,14 @@ const page = () => {
               </div>
               <div>
                 <p>Rating</p>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 dark:text-white">
                   <img src="/star.svg" alt="" />
                   <div>
                     <p>
                       {movie.vote_average.toFixed(1)}
                       <span className="text-base text-[#71717A]">/10</span>
                     </p>
-                    <p className="text-xs text-[#71717A]">
+                    <p className="text-xs text-[#71717A] dark:text-white">
                       {formatVoteCount(movie.vote_count)}k
                     </p>
                   </div>
@@ -177,9 +179,9 @@ const page = () => {
                   alt={movie.title}
                 />
               </div>
-              <div className="w-190 h-[428px] rounded-sm overflow-hidden relative pt-80  flex justify-between">
+              <div className="w-190 h-[428px] rounded-sm overflow-hidden relative pt-80  flex justify-between ">
                 <img
-                  className="w-full h-full object-cover absolute inset-0"
+                  className="w-full h-full object-cover absolute inset-0 "
                   src={backdropUrl}
                   alt={movie.title}
                 />
@@ -234,30 +236,32 @@ const page = () => {
                 <Link
                   key={genre.id}
                   href={`/genre/${genre.id}?name=${encodeURIComponent(genre.name)}`}
-                  className="border border-[#E4E4E7] rounded-full text-xs font-semibold px-[10px] py-[2px] hover:bg-gray-50 transition-colors"
+                  className="border border-[#E4E4E7] rounded-full text-xs font-semibold px-[10px] py-[2px] hover:bg-gray-50 transition-colors dark:text-white"
                 >
                   {genre.name}
                 </Link>
               ))}
             </div>
             <div>
-              <p className="text-base font-normal">{movie.overview}</p>
+              <p className="text-base font-normal dark:text-white">
+                {movie.overview}
+              </p>
             </div>
             <div className="flex flex-col gap-5">
               {directors.length > 0 && (
-                <div className="flex gap-[53px] border-b border-[#E4E4E7] p-1">
+                <div className="flex gap-[53px] border-b border-[#E4E4E7] p-1 dark:text-white">
                   <p className="text-base font-bold w-[64px]">Director</p>
                   <p>{directors.join(" · ")}</p>
                 </div>
               )}
               {writers.length > 0 && (
-                <div className="flex gap-[53px] border-b border-[#E4E4E7] p-1">
+                <div className="flex gap-[53px] border-b border-[#E4E4E7] p-1 dark:text-white">
                   <p className="text-base font-bold w-[64px]">Writers</p>
                   <p>{writers.join(" · ")}</p>
                 </div>
               )}
               {stars.length > 0 && (
-                <div className="flex gap-[53px] border-b border-[#E4E4E7] p-1">
+                <div className="flex gap-[53px] border-b border-[#E4E4E7] p-1 dark:text-white">
                   <p className="text-base font-bold w-[64px]">Stars</p>
                   <p>{stars.join(" · ")}</p>
                 </div>
@@ -274,7 +278,7 @@ const page = () => {
                     <Link
                       href={`/movies/${movie.id}`}
                       key={movie.id}
-                      className="flex flex-col gap-2 cursor-pointer group"
+                      className="flex flex-col gap-2 cursor-pointer group dark:text-white"
                     >
                       <div className="rounded-sm overflow-hidden aspect-2/3">
                         <img
@@ -290,12 +294,12 @@ const page = () => {
                       <div>
                         <div className="flex items-center gap-1">
                           <img src="/star.svg" alt="star" className="w-4 h-4" />
-                          <span className="text-sm font-semibold">
+                          <span className="text-sm font-semibold dark:text-white">
                             {movie.vote_average.toFixed(1)}
                           </span>
                           <span className="text-xs text-[#71717A]">/10</span>
                         </div>
-                        <p className="text-sm font-medium line-clamp-2">
+                        <p className="dark:text-white text-sm font-medium line-clamp-2">
                           {movie.title}
                         </p>
                       </div>
